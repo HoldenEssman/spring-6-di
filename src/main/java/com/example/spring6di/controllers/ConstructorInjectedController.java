@@ -1,21 +1,19 @@
 package com.example.spring6di.controllers;
 
 import com.example.spring6di.services.GreetingService;
-import com.example.spring6di.services.GreetingServiceImpl;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class MyController {
-
+public class ConstructorInjectedController {
     private final GreetingService greetingService;
 
-    public MyController() {
-        this.greetingService = new GreetingServiceImpl();
+    public ConstructorInjectedController(@Qualifier("greetingServiceImpl") GreetingService greetingService) {
+        this.greetingService = greetingService;
     }
 
     public String sayHello(){
-        System.out.println("I'm in the controller");
-
         return greetingService.sayGreeting();
     }
+
 }
